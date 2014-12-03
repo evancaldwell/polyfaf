@@ -5,12 +5,15 @@
 <polymer-element name="friend-list" attributes="">
   <template>
     <link rel="stylesheet" href="friend-list.css">
-    <!-- <firebase-element id="base" 
-      location="https://faf.firebaseio.com/users/{{globals.currentUser.facebook.id}}/friendList" 
-      data="friends" keys="keys"></firebase-element> -->
+    <firebase-element id="base" 
+      location="https://faf.firebaseio.com/users/" 
+      data="friends" keys="keys"></firebase-element>
+      <!-- {{globals.currentUser.facebook.id}}/friendList -->
     <pvc-globals values="globals"></pvc-globals>
     <ul>
       <p>friend-list element</p>
+      <h3>Strigified data:</h3>
+      <pre>{{json}}</pre>
       <template id="friend-list" repeat="{{friend in friends}}">
         <paper-shadow>
           <li>
@@ -31,7 +34,10 @@
 
       Polymer({
         ready: function() {
-          this.friends = [
+          // TODO: remove this when firebase is working. Change the z to s to text firebase-nashi
+          this.json = JSON.stringify(this.friends, null, '\t');
+          console.log("stringified fb json: " + this.json);
+          this.friendz = [
             {
               friendName: "Malinda",
               pic: "https://en.gravatar.com/userimage/59615533/08e794df9c70573669a6bce1d1b5c7c6.jpg?size=200",
