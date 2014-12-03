@@ -1,0 +1,96 @@
+<link rel="import" href="../../bower_components/firebase-element/firebase-element.html">
+<link rel="import" href="../../bower_components/firebase-element/firebase-login.html">
+<link rel="import" href="../../bower_components/pvc-globals/pvc-globals.html">
+<link rel="import" href="../../bower_components/app-router/app-router.html">
+
+<polymer-element name="app-container" attributes="">
+  <template>
+<!-- =========== non-display ========== -->
+    <link rel="stylesheet" href="app-container.css">
+    <firebase-login 
+        id="baseLogin" 
+        user="{{user}}" 
+        statusKnown="{{statusKnown}}" 
+        location="https://faf.firebaseio.com/" 
+        provider="facebook" 
+        on-login="{{onLogin}}"
+        on-error="{{onLoginError}}"></firebase-login>
+    <pvc-globals values="{{globals}}"></pvc-globals>
+    <!-- TODO: bring this back in when friend-list and app router are working
+    <core-ajax
+      auto
+      url="http://graph.facebook.com/v2.2/me/picture?redirect=false&height=500&type=normal&width=500"
+      handleAs="json"
+      on-core-response="{{handleFBResponse}}"></core-ajax> -->
+
+<!-- =========== display ========== -->
+    <core-drawer-panel drawerWidth="300px">
+      <core-header-panel drawer>
+        <div class="core-header">
+          <core-toolbar>
+            <paper-icon-button id="friend-menu-close" icon="arrow-back" core-drawer-toggle></paper-icon-button>
+            <div flex>Friends</div>
+          </core-toolbar>
+        </div>
+        <div>
+          <p>friend-list</p>
+          <friend-list></friend-list>
+        </div>
+      </core-header-panel>
+      <core-header-panel main>
+        <div class="core-header">
+          <core-toolbar>
+            <paper-icon-button id="friend-menu-open" icon="menu" core-drawer-toggle></paper-icon-button>
+            <div flex>FAF</div>
+            <paper-menu-button>
+              <paper-icon-button icon="social:person"></paper-icon-button>
+              <paper-dropdown class="dropdown" transition="">
+                <core-menu class="menu">
+                  <paper-item on-click="{{login}}" hidden?="{{!statusKnown || user}}">Login</paper-item>
+                  <paper-item on-click="{{logout}}" hidden?="{{!statusKnown || !user}}">Logout</paper-item>
+                </core-menu>
+              </paper-dropdown>
+            </paper-menu-button>
+            <template if="{{user}}">{{user.facebook.displayName}}</template>
+          </core-toolbar>
+        </div>
+        <div class="content">
+          <!-- TODO: bring this back in when the friend-list element is working
+          <app-router>
+            <app-route path="/" import="../me-view/me-view.html"></app-route>
+            <app-route path="/person/:id" import="../person-view/person-view.html"></app-route>
+          </app-router> -->
+          <template if="{{user}}">
+            <img src="{{user.facebook.cachedUserProfile.picture.data.url}}">
+          </template>
+        </div>
+      </core-header-panel>
+    </core-drawer-panel>
+  </template>
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        // define element prototype here
+        login: function() {
+          this.$.baseLogin.login();
+        },
+        logout: function() {
+          this.$.baseLogin.logout();
+        },
+        onLogin: function() {
+          this.globals.currentUser = this.user;
+          console.log('user is: ' + JSON.stringify(this.globals.currentUser));
+        },
+        onLoginError: function(err) {
+          console.log('An error occurred: ' + JSON.stringify(err));
+        },
+        handleFBResponse: function(response) {
+          console.log('FB response: ' + JSON.stringify(response));
+        }
+      });
+
+    })();
+  </script>
+</polymer-element>

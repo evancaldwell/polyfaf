@@ -1,0 +1,71 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/firebase-element/firebase-element.html">
+<link rel="import" href="../../bower_components/pvc-globals/pvc-globals.html">
+
+<polymer-element name="friend-list" attributes="">
+  <template>
+    <link rel="stylesheet" href="friend-list.css">
+    <!-- <firebase-element id="base" 
+      location="https://faf.firebaseio.com/users/{{globals.currentUser.facebook.id}}/friendList" 
+      data="friends" keys="keys"></firebase-element> -->
+    <pvc-globals values="globals"></pvc-globals>
+    <ul>
+      <p>friend-list element</p>
+      <template id="friend-list" repeat="{{friend in friends}}">
+        <paper-shadow>
+          <li>
+            <friend-card 
+              friendData="{{friends}}">
+              <img src="{{friend.pic}}">
+              <h2>{{friend.score}}</h2>
+              <h1>{{friend.friendName}}</h1>
+            </friend-card>
+          </li>
+        </paper-shadow>
+      </template>
+    </ul>
+  </template>
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        ready: function() {
+          this.friends = [
+            {
+              friendName: "Malinda",
+              pic: "https://en.gravatar.com/userimage/59615533/08e794df9c70573669a6bce1d1b5c7c6.jpg?size=200",
+              score: "146"
+            },
+            {
+              friendName: "Corban",
+              pic: "https://en.gravatar.com/userimage/59615533/08e794df9c70573669a6bce1d1b5c7c6.jpg?size=200",
+              score: "145"
+            },
+            {
+              friendName: "Ella",
+              pic: "https://en.gravatar.com/userimage/59615533/08e794df9c70573669a6bce1d1b5c7c6.jpg?size=200",
+              score: "144"
+            }, 
+            {
+              friendName: "Edmund",
+              pic: "https://en.gravatar.com/userimage/59615533/08e794df9c70573669a6bce1d1b5c7c6.jpg?size=200",
+              score: "143"
+            },
+            {
+              friendName: "Liam",
+              pic: "https://en.gravatar.com/userimage/59615533/08e794df9c70573669a6bce1d1b5c7c6.jpg?size=200",
+              score: "142"
+            },
+            {
+              friendName: "Baby",
+              pic: "https://en.gravatar.com/userimage/59615533/08e794df9c70573669a6bce1d1b5c7c6.jpg?size=200",
+              score: "141"
+            }
+          ];
+        }
+      });
+
+    })();
+  </script>
+</polymer-element>

@@ -1,0 +1,49 @@
+:host {
+  display: block;
+  padding: 15px;
+}
+/* set the fill color of the follow icon when it is tapped */
+:host([follow]) paper-icon-button {
+  color: #da4336;
+}
+#container {
+	&>div {
+		margin-left: 20px;
+	}
+	img {
+		width: 100px;
+		height: 100px;
+	}
+	.badges {
+		core-icon {
+			color: gold;
+			width: 70px;
+			height: 70px;
+		}
+		.trend-up {
+			color: green;
+		}
+		.trend-down {
+			color: red;
+		}
+		.trend-nuetral {
+			color: yellow;
+		}
+	}
+	h2 {
+		margin-top: 0;
+	}
+}
+h1 {
+	margin-top: 0px;
+	text-align: center;
+	.follow {
+		
+	}
+}
+.stat {
+	span {
+		color: #272822;
+		font-weight: bold;
+	}
+}

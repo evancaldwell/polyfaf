@@ -1,0 +1,54 @@
+<polymer-element name="friend-card" attributes="friendData">
+  <template>
+    <link rel="stylesheet" href="friend-card.css">
+    <!-- card to display a friends Facebook info -->
+    <div id="container" layout horizontal>
+      <content select="img"></content>
+      <!-- <img src="https://en.gravatar.com/userimage/59615533/08e794df9c70573669a6bce1d1b5c7c6.jpg?size=200" alt=""> -->
+      <div vertical justified layout>      
+        <div class="badges" horizontal layout>
+          <core-icon icon="grade"></core-icon>
+          <core-icon class="trend-up" icon="expand-less"></core-icon>
+        </div>
+        <content select="h2"></content>
+        <!-- <h2>Score: {{score}}</h2> -->
+      </div>
+    </div>
+    <content select="h1"><span><paper-icon-button id="follow" icon="bookmark" on-tap="{{followTapped}}"></paper-icon-button></span></content>
+    <!-- <h1 flex>{{friendData.friendName}}<span><paper-icon-button class="follow" icon="bookmark"></paper-icon-button></span></h1> -->
+
+    <!-- <div vertical layout>
+      <p class="stat">Score: <span>{{ score }}</span></p>
+      <p class="stat">Friends: <span>{{ friendCount }}</span></p>
+      <p class="stat">Posts: <span>{{ postCount }}</span></p>
+      <p class="stat">Photos: <span>{{ photoCount }}</span></p>
+      <p class="stat">Games: <span>{{ gameCount }}</span></p>
+    </div> -->
+  </template>
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        // define element prototype here
+        publish: {
+          follow: {
+            value: false,
+            reflect: true
+          }
+        },
+        followTapped: function(event, detail, sender) {
+          this.follow = !this.follow;
+          this.fire('follow-tap');
+        },
+        name: 'Evan Caldwell',
+        score: '146',
+        friendCount: '212',
+        postCount: '3',
+        photoCount: '48',
+        gameCount: '8'
+      });
+
+    })();
+  </script>
+</polymer-element>
