@@ -4,18 +4,18 @@
     <!-- card to display a friends Facebook info -->
     <div id="container" layout horizontal>
       <content select="img"></content>
-      <!-- <img src="https://en.gravatar.com/userimage/59615533/08e794df9c70573669a6bce1d1b5c7c6.jpg?size=200" alt=""> -->
-      <div vertical justified layout>      
-        <div class="badges" horizontal layout>
+      <div flex vertical justified layout>      
+        <div class="badges" horizontal around-justified layout>
           <core-icon icon="grade"></core-icon>
           <core-icon class="trend-up" icon="expand-less"></core-icon>
         </div>
         <content select="h2"></content>
-        <!-- <h2>Score: {{score}}</h2> -->
       </div>
     </div>
-    <content select="h1"><span><paper-icon-button id="follow" icon="bookmark" on-tap="{{followTapped}}"></paper-icon-button></span></content>
-    <!-- <h1 flex>{{friendData.friendName}}<span><paper-icon-button class="follow" icon="bookmark"></paper-icon-button></span></h1> -->
+    <div id="name" horizontal layout>
+      <content select="h1"></content>
+      <paper-icon-button id="follow" icon="bookmark" on-tap="{{followTapped}}"></paper-icon-button>
+    </div>
 
     <!-- <div vertical layout>
       <p class="stat">Score: <span>{{ score }}</span></p>
@@ -40,13 +40,7 @@
         followTapped: function(event, detail, sender) {
           this.follow = !this.follow;
           this.fire('follow-tap');
-        },
-        name: 'Evan Caldwell',
-        score: '146',
-        friendCount: '212',
-        postCount: '3',
-        photoCount: '48',
-        gameCount: '8'
+        }
       });
 
     })();

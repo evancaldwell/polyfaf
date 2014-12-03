@@ -17,8 +17,8 @@
 	.badges {
 		core-icon {
 			color: gold;
-			width: 70px;
-			height: 70px;
+			width: 50px;
+			height: 50px;
 		}
 		.trend-up {
 			color: green;
@@ -34,12 +34,12 @@
 		margin-top: 0;
 	}
 }
-h1 {
+#name > * {
 	margin-top: 0px;
 	text-align: center;
-	.follow {
-		
-	}
+}
+#follow {
+	padding-top: 30px;
 }
 .stat {
 	span {
