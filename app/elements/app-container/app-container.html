@@ -15,6 +15,8 @@
         provider="facebook" 
         on-login="{{onLogin}}"
         on-error="{{onLoginError}}"></firebase-login>
+    <firebase-element id="base" location="https://faf.firebaseio.com/" data="{{data}}" keys="{{keys}}"></firebase-element>
+    <firebase-element id="users" location="https://faf.firebaseio.com/users/" data="{{users}}" keys="{{userKeys}}"></firebase-element>
     <pvc-globals values="{{globals}}"></pvc-globals>
     <!-- TODO: bring this back in when friend-list and app router are working
     <core-ajax
@@ -25,7 +27,7 @@
 
 <!-- =========== display ========== -->
     <core-drawer-panel drawerWidth="300px">
-      <core-header-panel drawer>
+      <core-header-panel drawer id="hPanelDrawer">
         <div class="core-header">
           <core-toolbar>
             <paper-icon-button id="friend-menu-close" icon="arrow-back" core-drawer-toggle></paper-icon-button>
@@ -34,7 +36,17 @@
         </div>
         <div>
           <p>friend-list</p>
-          <friend-list></friend-list>
+          <core-list id="friend-list" scrollTarget="{{$.hPanelDrawer.scroller}}" flex>
+            <template>
+              <div layout horizontal center>
+                <core-image src="{{facebook image here}}" sizing="cover" preload></core-image>
+                <div flex>
+                  <!-- card list json here -->
+                </div>
+              </div>
+            </template>
+          </core-list>
+          <!-- <friend-list></friend-list> may not need this -->
         </div>
       </core-header-panel>
       <core-header-panel main>
@@ -62,7 +74,14 @@
           </app-router> -->
           <template if="{{user}}">
             <img src="{{user.facebook.cachedUserProfile.picture.data.url}}">
+          </template>          
+
+          <h3>My Firebase Data</h3>
+          
+          <template repeat="{{key in keys}}">
+            <p>{{key}}: {{data[key]}}</p>
           </template>
+
         </div>
       </core-header-panel>
     </core-drawer-panel>
@@ -81,7 +100,10 @@
         },
         onLogin: function() {
           this.globals.currentUser = this.user;
+          this.globals.fireKeys = this.keys;
+          this.globals.fireData = this.data;
           console.log('user is: ' + JSON.stringify(this.globals.currentUser));
+          console.log('data is: ' + JSON.stringify(this.globals.fireData));
         },
         onLoginError: function(err) {
           console.log('An error occurred: ' + JSON.stringify(err));
